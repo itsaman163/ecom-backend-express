@@ -40,7 +40,7 @@ import connectDB from './db/connect.js';
 // routes
 import Router from './routes/index.js';
 
-// error handler
+// error handler //
 import notFoundMiddleWare from './middleware/not-found.js';
 import errorHandlerMiddleWare from './middleware/error-handler.js';
 
