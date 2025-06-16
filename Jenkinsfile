@@ -21,7 +21,7 @@ pipeline {
         }
         stage("Build Image") {
             steps {
-               bat 'docker build -t ecom-backend-express:1.0 -f ./path/to/Dockerfile .'
+               bat 'docker build -t ecom-backend-express:1.0 -f ./Dockerfile .'
             }
         }
     }
