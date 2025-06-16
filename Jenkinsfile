@@ -1,5 +1,14 @@
 pipeline {
-    agent any
+    agent {
+    docker {
+      image 'node:18'
+      args '-u root:root' // optional if you face permission issues
+    }
+  }
+
+  environment {
+    NODE_ENV = "test"
+  }
     stages{
         stage("checkout"){
             steps{
