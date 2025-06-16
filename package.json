@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./src/**/*.test.js",
+    "build": "echo 'Running Build script'",
     "start": "node app.js",
     "start:production": "dotenv -e .env.production -- node app.js",
     "dev": "nodemon ./src/app.js"
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "dotenv-cli": "^8.0.0",
+    "mocha": "^11.6.0",
     "nodemon": "^3.1.10"
   },
   "engines": {
