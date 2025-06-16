@@ -20,7 +20,7 @@ pipeline {
         }
         stage("Build Image") {
             steps {
-               bat 'docker build -f ./Dockerfile -t ecom-backend-express:1.0 .'
+               bat 'docker build -t ecom-backend-express:1.0 .'
             }
         }
         stage('Docker Push to Hub') {
