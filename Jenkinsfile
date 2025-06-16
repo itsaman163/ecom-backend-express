@@ -19,5 +19,10 @@ pipeline {
                 bat 'npm run build'
             }
         }
+        stage("Build Image") {
+            steps {
+                bat 'docker build -t ecom-backend-express:1.0 .'
+            }
+        }
     }
 }
