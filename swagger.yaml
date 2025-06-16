@@ -1,0 +1,255 @@
+openapi: 3.0.0
+info:
+  title: ECOM Api
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:5000/api/v1/
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: Aman Kumar
+                  email: aman@gmail.com
+                  password: admin163
+            example:
+              name: Aman Kumar
+              email: aman@gmail.com
+              password: admin163
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: aman@gmail.com
+                  password: admin163
+            example:
+              email: aman@gmail.com
+              password: admin163
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth:
+    get:
+      tags:
+      - Auth
+      summary: Get All Registered User
+      operationId: getAllUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product:
+    post:
+      tags:
+      - Product
+      summary: Create Product
+      operationId: CreateProduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createProductRequest'
+              - example:
+                  name: ""
+                  company: ""
+                  price: ""
+                  colors: []
+                  image: []
+                  description: ""
+                  category: ""
+                  featured: ""
+                  rating: ""
+                  stars: ""
+                  stock: ""
+            example:
+              name: "Product Name"
+              company: "company name"
+              price: "50000"
+              colors: [ "#000", "#ffff" ]
+              image: [ { "url": "url_name" } ]
+              description: "test"
+              category: "test"
+              featured: "test"
+              rating: "3.4"
+              stars: "4"
+              stock: "18"
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Product
+      summary: Get All Product
+      operationId: GetAllProduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/{id}:
+    parameters:
+    - in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: The user ID
+    get:
+      tags:
+      - Product
+      summary: Get Single Product
+      operationId: GetSingleProduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Aman Kumar
+        email: aman@gmail.com
+        password: admin163
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: aman@yopmail.in
+        password: xxxx
+    createProductRequest:
+      title: createProductRequest
+      required:
+      - name
+      - company
+      - price
+      - colors
+      - image
+      - description
+      - category
+      - featured
+      - rating
+      - stars
+      - stock
+      type: object
+      properties:
+        name:
+          type: string
+        company:
+          type: string
+        price:
+          type: number
+        colors:
+          type: array
+        image:
+          type: array
+        description:
+          type: string
+        category:
+          type: string
+        featured:
+          type: string
+        rating:
+          type: number
+        stars:
+          type: number
+        stock:
+          type: number
+      example:
+        name: "Product Name"
+        company: "company name"
+        price: "50000"
+        colors: [ "#000", "#ffff" ]
+        image: [ { "url": "url_name" } ]
+        description: "test"
+        category: "test"
+        featured: "test"
+        rating: "3.4"
+        stars: "4"
+        stock: "18"
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Product
+  description: ''
+- name: Jobs
+  description: ''
