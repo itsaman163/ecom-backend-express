@@ -6,16 +6,6 @@ pipeline {
                 checkout scm
             }
         }
-stage("Debug") {
-    steps {
-        bat 'echo Current workspace:'
-        bat 'cd'
-        bat 'dir'
-        bat 'echo --- Listing all files ---'
-        bat 'dir /s /b'
-        bat 'type Dockerfile'
-    }
-}
         stage("Test") {
             steps {
                 bat 'npm install'
@@ -31,6 +21,16 @@ stage("Debug") {
         stage("Build Image") {
             steps {
                bat 'docker build -f ./Dockerfile -t ecom-backend-express:1.0 .'
+            }
+        }
+        stage('Docker Push to Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
+                    bat 'docker login -u %DOCKER_HUB_USER% -p %DOCKER_HUB_PASS%'
+                    bat "docker tag ecom-backend-express:1.0 aman163kumar/ecom-backend-express:1.0"
+                    bat "docker push aman163kumar/ecom-backend-express:1.0"
+                    bat "docker logout"
+                }
             }
         }
     }
