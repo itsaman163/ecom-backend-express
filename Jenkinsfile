@@ -25,13 +25,18 @@ pipeline {
         }
         stage('Docker Push to Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-cred',
+                    usernameVariable: 'DOCKER_HUB_USER',
+                    passwordVariable: 'DOCKER_HUB_PASS'
+                )]) {
                     bat 'docker login -u %DOCKER_HUB_USER% -p %DOCKER_HUB_PASS%'
-                    bat "docker tag ecom-backend-express:1.0 aman163kumar/ecom-backend-express:1.0"
-                    bat "docker push aman163kumar/ecom-backend-express:1.0"
-                    
+                    bat 'docker tag ecom-backend-express:1.0 %DOCKER_HUB_USER%/ecom-backend-express:1.0'
+                    bat 'docker push %DOCKER_HUB_USER%/ecom-backend-express:1.0'
+                    bat 'docker logout'
                 }
             }
         }
+
     }
 }
