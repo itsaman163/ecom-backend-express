@@ -15,6 +15,7 @@ stage("Debug") {
         bat 'dir /s /b'
         bat 'type Dockerfile'
     }
+}
         stage("Test") {
             steps {
                 bat 'npm install'
