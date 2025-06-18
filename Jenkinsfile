@@ -23,6 +23,8 @@ pipeline {
                 bat 'docker build -t ecom-backend-express:1.0 .'
             }
         }
+
+
         stage('Docker Push to Hub') {
             steps {
                 withCredentials([usernamePassword(
