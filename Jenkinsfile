@@ -39,6 +39,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Deploy to Render') {
             steps {
                 withCredentials([string(credentialsId: 'render-api-token', variable: 'RENDER_API_TOKEN')]) {
