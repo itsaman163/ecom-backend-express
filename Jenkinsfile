@@ -39,6 +39,19 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Render') {
+            steps {
+                withCredentials([string(credentialsId: 'render-api-token', variable: 'RENDER_API_TOKEN')]) {
+                    bat '''
+                    curl -X POST https://api.render.com/deploy/srv-d18ql7buibrs73duk83g?key=WASdNhVRP84 ^
+                      -H "Accept: application/json" ^
+                      -H "Authorization: Bearer %RENDER_API_TOKEN%" ^
+                      -H "Content-Type: application/json" ^
+                      -d "{}"
+                    '''
+                }
+            }
+        }
 
     }
 }
