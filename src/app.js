@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import 'express-async-errors';
-// extra security package
+
+
+/** EXTRA SECURITY PACKAGE */
 import helmet from 'helmet';
 import cors from 'cors';
 import xss from 'xss-clean';
@@ -11,10 +13,21 @@ import rateLimiter from 'express-rate-limit';
 import bodyParser from "body-parser";
 import multer from "multer";
 import fs from "fs";
+
+
 import swaggerUI from 'swagger-ui-express';
 import YAML from "yamljs";
 const swaggerDocument = YAML.parse(fs.readFileSync('./swagger.yaml', 'utf8'));
-//
+
+// connect db
+import connectDB from './db/connect.js';
+// routes
+import Router from './routes/index.js';
+
+// error handler //
+import notFoundMiddleWare from './middleware/not-found.js';
+import errorHandlerMiddleWare from './middleware/error-handler.js';
+
 import express from 'express';
 const app = express();
 
@@ -35,15 +48,6 @@ const form = multer({ storage: storage });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(form.any());
-// connect db
-import connectDB from './db/connect.js';
-// routes
-import Router from './routes/index.js';
-
-// error handler //
-import notFoundMiddleWare from './middleware/not-found.js';
-import errorHandlerMiddleWare from './middleware/error-handler.js';
-
 app.use(express.static('./public'))
 app.use(express.json());
 
@@ -69,7 +73,6 @@ app.use(errorHandlerMiddleWare);
 
 
 const port = process.env.PORT || 3000;
-
 (async () => {
     try {
         await connectDB(process.env.MONGO_URI);
